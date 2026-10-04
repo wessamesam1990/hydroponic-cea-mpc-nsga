@@ -1,5 +1,7 @@
 # Hydroponic CEA prototype: physics-based model → multi-objective optimization → lag-aware MPC
 
+*Author: Wessam El-Ssawy*
+
 A small, fully reproducible Python prototype for controlled-environment (indoor hydroponic lettuce) energy,
 water and climate control. It has two parts that mirror two research directions:
 
@@ -10,6 +12,8 @@ water and climate control. It has two parts that mirror two research directions:
 > **Status: illustrative prototype.** Parameters are plausible order-of-magnitude values, **not calibrated or
 > validated** against a specific facility. The value of this repo is the workflow and the controller/optimizer
 > structure, which can be re-parameterized with measured data.
+
+**Pre-computed outputs** (figures and CSV files from one run) are in the repository root. Running the scripts regenerates them into `figures/` and `results/` folders.
 
 ## Run
 ```bash
@@ -34,7 +38,7 @@ RH set-point (55–80 %). Objectives: minimize energy, minimize water, maximize 
 
 Result (this model): the front spans ≈46–139 kWh m⁻² and ≈2–9 kg m⁻². The most energy-efficient solutions reach
 ≈14.8 kWh kg⁻¹ (long photoperiod ≈20 h, moderate PPFD ≈280, T ≈22.5 °C, RH ≈72 %) versus ≈16.9 kWh kg⁻¹ for a
-conventional reference set-point (250 µmol, 16 h, 22 °C, 70 %). `figures/pareto_front.png`.
+conventional reference set-point (250 µmol, 16 h, 22 °C, 70 %). See the figure below.
 
 ## 3. Lag-aware MPC (`run_mpc.py`)
 Plant: 100 L reservoir, chiller acting through a transport/response **delay**, pump heat gain, room-air temperature
@@ -53,8 +57,20 @@ Base case (20-min delay), set-point 20 °C, band 18–22 °C:
 | MPC, lag-aware | 0.08 | 0.0 | 1.80 | 5.7 |
 
 Delay sweep (0–40 min): RMSE of the lag-aware MPC grows only from 0.04 to 0.12 K, whereas on/off ±0.5 K goes from
-0.41 to 1.73 K and the delay-unaware MPC from 0.04 to 1.43 K. See `figures/mpc_timeseries.png`,
-`figures/mpc_delay_sweep.png`, `results/*.csv`.
+0.41 to 1.73 K and the delay-unaware MPC from 0.04 to 1.43 K. See the figures below.
+
+### Figures
+**Pareto front (energy, water, yield)**
+
+![Pareto front](pareto_front.png)
+
+**Nutrient-solution temperature control, 20-min actuation delay (day 2)**
+
+![MPC time series](mpc_timeseries.png)
+
+**Effect of actuation delay on control performance**
+
+![Delay sweep](mpc_delay_sweep.png)
 
 ## Limitations (please read)
 - Simulation only; no experimental validation. Parameters are illustrative.
