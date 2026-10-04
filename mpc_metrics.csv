@@ -1,0 +1,5 @@
+controller,rmse_K,pct_outside_band,max_T,min_T,energy_kwh_el_day,compressor_starts_day
+"On/off, ±0.5 K",1.076,5.952,21.459,17.217,1.97,10.333
+"On/off, ±1.0 K",1.299,12.857,21.837,16.934,1.941,8.0
+"MPC, delay-unaware",0.677,0.0,20.854,18.432,1.906,14.667
+"MPC, lag-aware",0.079,0.0,20.21,19.85,1.798,5.667
